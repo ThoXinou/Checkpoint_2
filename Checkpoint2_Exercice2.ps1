@@ -54,7 +54,181 @@
 # Write-Host "L'utilisateur $Prenom.$Nom a été crée avec le mot de passe $Pass" -ForegroundColor Green
 
 # Q.2.9
-# Copier le contenu du fichier Functions.ps1 en dessous de la 1ère ligne du script AddLocalUsers.ps1, puis ajouter "Log" avant la dernière accolade du script
+# Copier le contenu du fichier Functions.ps1 en dessous de la 1ère ligne du script AddLocalUsers.ps1
+# Le contenu de la fonction Log doit être modifié de cette façon : 
+
+
+function Log
+{
+    param([string]$Content) -> Suppression du paramètre "$FilePath"
+    $FilePath = "C:\Scripts\log.txt" -> Ligne ajoutée pour définir un fichier de sortie qui s'appellera "log.txt" situé dans le dossier C:\Scripts\
+    # Vérifie si le fichier existe, sinon le crée
+    If (-not (Test-Path -Path $FilePath))
+    {
+        New-Item -ItemType File -Path $FilePath | Out-Null
+    }
+
+    # Construit la ligne de journal
+    $Date = Get-Date -Format "dd/MM/yyyy-HH:mm:ss"
+    $User = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    $logLine = "$Date;$User;$Content"
+
+    # Ajoute la ligne de journal au fichier
+    Add-Content -Path $FilePath -Value $logLine
+}
+
+# Puis ajouter la ligne suivante à la fin du script : 
+Log -Content "Création d'utilisateurs"
+
+# Q.2.10
+# Ajout de ce bloc de code dans  "foreach ($User in $Users)
+    }
+    else
+    {
+    Write-Host = "L'utilisateur $Prenom.$Nom existe déjà" -ForegroundColor Red
+    }
+
+# Q.2.11
+# La ligne Add-LocalGroupMember -Group "Utilisateur" -Member "$Prenom.$Nom" compte une erreur, il faut ajouter un "s" à "Utilisateur"
+# La bonne ligne est donc : Add-LocalGroupMember -Group "Utilisateurs" -Member "$Prenom.$Nom"
+
+# Q.2.12
+# Voici la partie du code avec la variable $Name 
+foreach ($User in $Users)
+{
+    $Prenom = ManageAccentsAndCapitalLetters -String $User.prenom
+    $Nom = ManageAccentsAndCapitalLetters -String $User.Nom
+    $Name = "$Prenom.$Nom"
+    If (-not(Get-LocalUser -Name "$Name" -ErrorAction SilentlyContinue))
+    {
+        $Pass = Random-Password
+        $Password = (ConvertTo-secureString $Pass -AsPlainText -Force)
+        $Description = "$($User.description) - $($User.fonction)"
+        $UserInfo = @{
+            Name                 = "$Name"
+            FullName             = "$Name"
+            Description          = "$Description"
+            Password             = $Password
+            AccountNeverExpires  = $true
+            PasswordNeverExpires = $false
+        }
+
+        New-LocalUser @UserInfo
+        Add-LocalGroupMember -Group "Utilisateurs" -Member "$Name"
+        Write-Host "L'utilisateur $Name a été crée avec le mot de passe $Pass" -ForegroundColor Green
+    }
+    else
+    {
+    Write-Host = "L'utilisateur $Name existe déjà" -ForegroundColor Red
+    }
+}
+
+# Q.2.13
+# Remplacer la ligne suivante : 
+PasswordNeverExpires = $false
+# par
+PasswordNeverExpires = $true
+
+# Q.2.14
+# Remplacer la ligne suivante : 
+Function Random-Password ($length = 6)
+# par
+Function Random-Password ($length = 12)
+
+# Q.2.15
+# Remplacer la ligne suivante : 
+Start-Sleep -Seconds 10
+# par
+Read-Host "Appuyez sur Entrée pour continuer ... "
+
+# Q.2.16
+# La fonction ManageAccentsAndCapitalLetters permet d'ignorer les lettres majuscules et les lettres avec les accents, comme, par exemple, cette commande : 
+$Description = "$($user.description) - $($User.fonction)"
+
+# Le script AddLocalUsers.ps1  la fin de l'exercice est le suivant : 
+
+
+Write-Host "--- Début du script ---"
+
+function Log
+{
+    param([string]$Content)
+    $FilePath = "C:\Scripts\log.txt"
+    # Vérifie si le fichier existe, sinon le crée
+    If (-not (Test-Path -Path $FilePath))
+    {
+        New-Item -ItemType File -Path $FilePath | Out-Null
+    }
+
+    # Construit la ligne de journal
+    $Date = Get-Date -Format "dd/MM/yyyy-HH:mm:ss"
+    $User = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    $logLine = "$Date;$User;$Content"
+
+    # Ajoute la ligne de journal au fichier
+    Add-Content -Path $FilePath -Value $logLine
+}
+Function Random-Password ($length = 12)
+{
+    $punc = 46..46
+    $digits = 48..57
+    $letters = 65..90 + 97..122
+
+    $password = get-random -count $length -input ($punc + $digits + $letters) |`
+        ForEach -begin { $aa = $null } -process {$aa += [char]$_} -end {$aa}
+    Return $password.ToString()
+}
+
+Function ManageAccentsAndCapitalLetters
+{
+    param ([String]$String)
+    
+    $StringWithoutAccent = $String -replace '[éèêë]', 'e' -replace '[àâä]', 'a' -replace '[îï]', 'i' -replace '[ôö]', 'o' -replace '[ùûü]', 'u'
+    $StringWithoutAccentAndCapitalLetters = $StringWithoutAccent.ToLower()
+    $StringWithoutAccentAndCapitalLetters
+}
+
+$Path = "C:\Scripts"
+$CsvFile = "$Path\Users.csv"
+$LogFile = "$Path\Log.log"
+
+$Users = Import-Csv -Path $CsvFile -Delimiter ";" -Header "prenom","nom","societe","fonction","service","description" -Encoding UTF8  | Select-Object -Skip 1
+
+foreach ($User in $Users)
+{
+    $Prenom = ManageAccentsAndCapitalLetters -String $User.prenom
+    $Nom = ManageAccentsAndCapitalLetters -String $User.Nom
+    $Name = "$Prenom.$Nom"
+    If (-not(Get-LocalUser -Name "$Name" -ErrorAction SilentlyContinue))
+    {
+        $Pass = Random-Password
+        $Password = (ConvertTo-secureString $Pass -AsPlainText -Force)
+        $Description = "$($user.description) - $($User.fonction)"
+        $UserInfo = @{
+            Name                 = "$Name"
+            FullName             = "$Name"
+            Description          = "$Description"
+            Password             = $Password
+            AccountNeverExpires  = $true
+            PasswordNeverExpires = $true
+        }
+
+        New-LocalUser @UserInfo
+        Add-LocalGroupMember -Group "Utilisateurs" -Member "$Name"
+        Write-Host "L'utilisateur $Name a été crée avec le mot de passe $Pass" -ForegroundColor Green
+    }
+    else
+    {
+    Write-Host = "L'utilisateur $Name existe déjà" -ForegroundColor Red
+    }
+}
+Log -Content "Création d'utilisateurs"
+pause
+Write-Host "--- Fin du script ---"
+Read-Host "Appuyez sur Entrée pour continuer ... " 
+
+
+
 
 
 
