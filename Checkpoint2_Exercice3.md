@@ -26,11 +26,11 @@ L'adresse 10.10.255.254 est l'adresse d'une des interfaces du routeur B, il sert
 | PC5 | 10.10.0.0/15 | 10.10.0.1 | 10.11.255.254 | 10.11.255.555 |
 
 ## Q.3.7
-Les ordinateurs qui peuvent communiquer entre eux sont : PC1, PC3, PC4, et PC5; situés sur le même réseau 10.10.0.0/16
-Suite à la question précédente, nous pouvons aussi dire que le PC2 ne peux communiquer qu'avec le PC5 (Même adresse de braodcast)
+Les ordinateurs qui peuvent communiquer entre eux sont : PC1, PC3, PC4, et PC5; situés sur le même réseau 10.10.0.0/16.
+Suite à la question précédente, nous pouvons aussi dire que le PC2 ne peux communiquer qu'avec le PC5 (Il partagent tous deux une même plage IP).
 
 ## Q.3.8
-Les ordinateurs étant tous reliés sur le routeur, les 5 PC pourront atteindre le réseau 172.16.5.0/24
+Les ordinateurs étant tous reliés sur le routeur, les 5 PC pourront atteindre le réseau 172.16.5.0/24.
 
 ## Q.3.9
 Aucune incident lors de l'inversion de ports, les ordinateurs étant sur le même réseau.
@@ -45,7 +45,7 @@ L'adresse MAC qui intialise la connexion est 00:50:79:66:68:00, il s'agit de PC1
 Oui la communication a réussi, Il s'agit d'un ping entre PC1 et PC4
 
 ## Q.3.13
-Comme il s'agit d'un ping, le "request" et le "reply" correspond  la communication entre les deux ordinateurs PC1 et PC4
+Comme il s'agit d'un ping, le "request" et le "reply" correspondent à la communication entre les deux ordinateurs PC1 et PC4
 PC1 envoie le request à PC4 (IP : 10.10.4.1; MAC : 00.50.79.66.68.00)
 PC4 envoie le reply à PC1 (IP : 10.10.4.2, MAC : 00.50.79.66.68.03)
 
@@ -57,10 +57,10 @@ La matériel A étant un switch, il permet aux ordinateurs de communiquer entre 
 Le matériel B n'intrervient pas
 
 ## Q.3.16
-C'est l'ordineteur qui dispose de l'adresse IP 10.10.80.3 qui intialise le communication, il s'agit donc de PC3
+C'est l'ordinateur qui dispose de l'adresse IP 10.10.80.3 qui intialise le communication, il s'agit donc de PC3
 
 ## Q.3.17
-Il s'agit du protocole ICMP, il permet de signaler des erreurs sur le réseaux, et aussi de faire des diagnostics réseaux
+Il s'agit du protocole ICMP, il permet de signaler des erreurs sur le réseau, et aussi de faire des diagnostics réseaux
 
 ## Q.3.18
 Non la communication n'a pas fonctionné, comme on a vu précédemment que PC2 et PC3 ne peuvent pas communiquer entre eux.
