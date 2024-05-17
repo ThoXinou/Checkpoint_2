@@ -59,11 +59,57 @@ Nous allons juste modifier la configuration IP du client :
 
 ![2024-05-17 10_00_29-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/706ddbba-7b5b-44bb-8259-94110a6cbeed)
 
-Puis nous allons vérifier que cette modification a fonctionné : 
+## Q.1.5
+
+Nous allons vérifier si cette modification a bien fonctionné : 
 
 ![2024-05-17 10_01_47-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/f1934c23-43c8-43ab-ae2d-45f2c1fc9691)
 
 La nouvelle adresse IP du client a donc été attribué via le DHCP, et est maintenant `172.16.10.20`
+
+Comme nous l'avons vu précedement, le DHCP a déja été configuré sur le serveur, et certaines plages d'adresses IP ont été exclues : Les plages `172.16.10.1` à `172.16.10.19` et `172.16.10.241` à `172.16.10.254`
+
+![2024-05-17 09_59_31-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/0fb67c5a-ecae-4327-b362-3eb3e0b4f611)
+
+La première adresse IP disponible est donc bien la `172.16.10.20`
+
+## Q.1.6
+
+Pour que le client accède  l'IP `172.16.10.15`, nous pouvons faire une réservation d'adresse IP via la configuration du DHCP : 
+
+![2024-05-17 10_14_07-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/7338029a-416d-4737-b72e-2c35c3536673)
+
+Puis nous rentrons les informations de la machine client : 
+
+![2024-05-17 10_16_13-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/10f18eea-ee5f-43e3-a0ba-3a38c0596710)
+
+![2024-05-17 10_16_42-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/0b473208-c053-4328-a9be-46ada80452ac)
+
+De retour sur la machine client, nous éxécutons les commandes suivantes afin de renouveller l'adresse IP : 
+
+```cmd
+ipconfig /release
+ipconfig /renew
+```
+
+![2024-05-17 10_18_44-VirtualBoxVM](https://github.com/ThoXinou/Checkpoint_2/assets/159007018/f53ecae2-f610-4753-ba08-963d47b2f531)
+
+La nouvelle adresse IP de la machine client est bien la `172.16.10.15`
+
+## Q.1.7
+
+Le principal interêt de passer en `IPv6` est la disponibilté d'adresses IP "illimitées", et donc de ne plus avoir besoin de passer par des plages d'exclusions / de réservations d'adresses IP.
+
+## Q.1.8
+
+Le serveur DHCP peut se montrer obsolète car le `SLAAC` permet aux hôtes de gérer automatiquement leurs adresses `IPv6` en fonction des contraintes du réseau. Cependant, un serveur DHCP peut toujours être utilisé pour le routage ou l'attribution de DNS par exemple.
+
+
+
+
+
+
+
 
 
 
