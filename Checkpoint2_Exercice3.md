@@ -66,6 +66,23 @@ Il s'agit du protocole ICMP, il permet de signaler des erreurs sur le réseaux, 
 Non la communication n'a pas fonctionné, comme on a vu précédemment que PC2 et PC3 ne peuvent pas communiquer entre eux.
 
 ## Q.3.19
-Cette ligne indique que la communication avec l'ordinateur ayant l'IP 10.10.80.2 n'est pas accessible via la passerelle 10.10.255.254
+Cette ligne indique que la communication avec l'ordinateur ayant l'IP 10.11.80.2 (PC2) n'est pas accessible via la passerelle 10.10.255.254
 
 ## Q.3.20
+Le switch A a permis d'indiquer à PC3 d'etre relié au routeur B
+Le routeur B a reçu un paquet provenant de PC3, mais a indiqué une erreur car PC2 ne se situe pas sur sa table de routage.
+
+## Q.3.21
+La source est un appareil possédant l'adresse IP 10.10.4.2, donc il s'agit de PC4
+La destination est un appareil possédant l'adresse IP 172.16.5.253, situé sur le réseau 172.16.5.0/24, donc après le routeur R2
+
+## Q.3.22
+L'adresse MAC source est CA:03:9E:EF:00:38
+L'adresse MAC destination est CA:01:DA:D2:00:1C
+Les deux appareils en communication disposent d'adresses MAC et sont connectées sur les réseaux 10.10.0.0/16 et 172.16.5.0/24
+
+## Q.3.23
+Comme les deux appareils sont situés dans des réseaux séparés par deux routeurs, il semblerait que cette comunnication ait eu lieu entre les deux routeurs B et R2.
+
+
+
