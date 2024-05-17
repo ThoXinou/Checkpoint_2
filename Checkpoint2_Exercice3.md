@@ -2,7 +2,7 @@
 
 ## Q.3.1
 
-Le matériel réseau A est un switch (ou commutateur), situé sur la couche 2 du modèle OSI
+Le matériel réseau A est un switch (ou commutateur), situé sur la couche 2 du modèle OSI.
 Son rôle est de pemettre à tous les ordinateurs reliés à lui de communiquer entre eux
 
 ## Q.3.2
