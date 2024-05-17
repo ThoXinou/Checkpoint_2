@@ -54,6 +54,7 @@
 # Write-Host "L'utilisateur $Prenom.$Nom a été crée avec le mot de passe $Pass" -ForegroundColor Green
 
 # Q.2.9
+# Copier le contenu du fichier Functions.ps1 en dessous de la 1ère ligne du script AddLocalUsers.ps1, puis ajouter "Log" avant la dernière accolade du script
 
 
 
